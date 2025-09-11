@@ -19,7 +19,7 @@ export default function Post({ post }) {
       <div className="  text-white w-full ">
         {/* Infos  */}
         <div className=" flex items-center justify-between ">
-          <Link href={`/@{post.pseudo}`}>
+          <Link href={`/${post.pseudo}`}>
             <b>{post.pseudo}</b>
           </Link>
           <div className=" text-sm text-gray-500">Il y a une heure</div>
