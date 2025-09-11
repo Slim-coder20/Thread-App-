@@ -11,7 +11,7 @@ export default function Login() {
             <div className="mt-5 w-[500px] mx-auto flex flex-col gap-4">
                 {/* Signup and signin */}
                 <Link href="/login/signup">
-                    <div className=" border border-gray-600 p-5 rounded hover:bg-gray-900 duration-150">
+                    <div className=" border border-gray-600 p-5 rounded-3xl hover:bg-gray-900 duration-150">
                         <h2 className="font-bold text-white">
                             S'inscrire ou se connecter avec une adresse email
                         </h2>
@@ -25,7 +25,7 @@ export default function Login() {
 
                 {/* Invited */}
                 <Link href="/login/pass">
-                    <div className="border border-gray-600 p-5 rounded hover:bg-gray-900 duration-150">
+                    <div className="border border-gray-600 p-5 rounded-3xl hover:bg-gray-900 duration-150">
                         <h2 className="font-bold text-white">
                             Utiliser sans profil
                         </h2>
