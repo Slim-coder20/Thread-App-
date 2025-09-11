@@ -1,12 +1,15 @@
-"use client"
-import React from 'react'
+"use client";
+import React from "react";
 
-export default function Button({children, onClick}) {
+export default function Button({ children, onClick, withoutMarginTop }) {
   return (
-    <button className=' bg-white rounded-3xl border-gray-400 p-3 mt-3 cursor-pointer w-full text-black hover:bg-gray-300 duration-150'
-            onClick={onClick}
+    <button
+      className={`bg-white rounded-3xl border-gray-400 cursor-pointer w-full p-4 text-black hover:bg-gray-300 duration-150${
+        !withoutMarginTop ? " mt-4" : ""
+      }`}
+      onClick={onClick}
     >
       {children}
     </button>
-  )
+  );
 }

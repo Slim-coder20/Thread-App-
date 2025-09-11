@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 export default function Pass() {
   // Variables
   const router = useRouter();
+  
   // Function //
   
   const onContinue = () => {
