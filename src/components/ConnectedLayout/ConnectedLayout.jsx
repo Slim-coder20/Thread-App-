@@ -15,7 +15,7 @@ export default function ConnectedLayout({ children }) {
       {/* Header */}
       <header className=" flex justify-between items-center py-4">
         {/* Nav */}
-        <nav className="absolute left-0 top-0 right-0 flex justify-center py-7 gap-5">
+        <nav className="absolute left-0 top-0 right-0 flex justify-center py-7 gap-5 z-0">
           {/* index  */}
           <Link href="/">
             <svg
@@ -53,8 +53,10 @@ export default function ConnectedLayout({ children }) {
         <Image src="/logo.png" alt="Threads logo" width={40} height={40} />
 
         {/* Button */}
-        <div>
-          <Button withoutMarginTop>Se connecter</Button>
+        <div className="z-10">
+          <Link href="/login">
+            <Button withoutMarginTop>Se connecter</Button>
+          </Link>
         </div>
       </header>
       {/* Content  */}
