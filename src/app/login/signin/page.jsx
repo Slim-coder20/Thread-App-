@@ -1,15 +1,49 @@
 "use client";
 import Link from "next/link";
 import Button from "@/components/Button/Button";
+import { toast } from "react-toastify";
+import { checkEmail } from "@/utils/emailsyntaxe";
+import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 
 export default function Signin() {
+  // Variable //
+  const router = useRouter();
+
   // function //
   const prepareLogin = async (formData) => {
     const email = formData.get("email");
     const password = formData.get("password");
 
+    // On vérifie si on pas d'email ou mot de passe //
+    if (!email || !password) {
+      return toast.error("Veuillez remplir tous les champs.");
+    }
+
+    // On vérifie la syntaxe de l'email //
+    if (!checkEmail(email)) {
+      return toast.error("Veuilez saisir une adresse email valide.");
+    }
+
+    // On connecte notre utilisateur //
+    try {
+      const response = await signIn("credentials", {
+        email, 
+        password, 
+        redirect: false
+      })
+      if(response.error) {
+        return toast.error(response.error); 
+      } 
+      // en cas de succees de connexion  on veut affhcier un messagge //
+      toast.success("Vous êtes connecté !");
+      // Redirection
+      router.push("/");
+    } catch (error) {
+      return toast.error(error.message);
+    }
+
     console.log(email, password);
-    //await createUser( email, password);
   };
   return (
     <div className="w-[440px] mx-auto">
@@ -39,9 +73,9 @@ export default function Signin() {
           required
         />
         <input
-          type="paswword"
+          type="password"
           name="password"
-          placeholder="mot de passe  "
+          placeholder="mot de passe"
           className="bg-gray-800 block w-full mt-3 p-5 text-gray-300 rounded-xl "
           required
         />
