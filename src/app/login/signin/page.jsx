@@ -45,7 +45,7 @@ export default function Signin() {
           className="bg-gray-800 block w-full mt-3 p-5 text-gray-300 rounded-xl "
           required
         />
-        <Button>Se connecter </Button>
+        <Button formButton>Se connecter </Button>
       </form>
       <div className="flex justify-center items-center mt-4 ">
         <div className=" border-t border-gray-500 w-1/4"></div>

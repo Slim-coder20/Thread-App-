@@ -92,7 +92,7 @@ export default function Signup() {
           required
         />
 
-        <Button>S'inscrire</Button>
+        <Button formButton>S'inscrire</Button>
       </form>
       <div className="flex justify-center items-center mt-4 ">
         <div className=" border-t border-gray-500 w-1/4"></div>
