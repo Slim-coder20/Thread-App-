@@ -2,8 +2,16 @@
 import Link from "next/link";
 import React from "react";
 import Button from "@/components/Button/Button";
+import { toast } from "react-toastify";
+import { checkEmail } from "@/utils/emailsyntaxe";
+import { useRouter } from "next/navigation";
+import { createUser } from "@/actions/createUser";
 
 export default function Signup() {
+  // Variable //
+
+  const router = useRouter();
+
   // Function //
   const prepareCreateUser = async (formData) => {
     const username = formData.get("username");
@@ -11,8 +19,28 @@ export default function Signup() {
     const email = formData.get("email");
     const password = formData.get("password");
 
-    console.log(username, pseudo, email, password);
-    await createUser(username, pseudo, email, password);
+    // On vérifie que tous les champs du formulaire sont rempli //
+    if (!username || !pseudo || !email || !password) {
+      // si c'est le cas on ajoute une notification avec toastify de react //
+      return toast.error("Aucun champ ne doit être vide !");
+    }
+
+    // On vérifie si l'email est valide //
+    if (!checkEmail(email)) {
+      return toast.error("Veuilez saisir une adresse email valide.");
+    }
+
+    try {
+      await createUser(username, pseudo, email, password);
+      // en cas de succees d'inscription on veut affhcier un messagge //
+      toast.success("Votre compte a bien été créé !");
+
+      // Redirection de l'utilisateur vers la page de connexion //
+      router.push("/login/signin");
+    } catch (error) {
+      return toast.error(error.message);
+    }
+    
   };
 
   return (
@@ -57,12 +85,13 @@ export default function Signup() {
           required
         />
         <input
-          type="paswword"
+          type="password"
           name="password"
           placeholder="mot de passe  "
           className="bg-gray-800 block w-full mt-3 p-5 text-gray-300 rounded-xl "
           required
         />
+
         <Button>S'inscrire</Button>
       </form>
       <div className="flex justify-center items-center mt-4 ">
