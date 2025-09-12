@@ -43,7 +43,7 @@ export default function Signin() {
       return toast.error(error.message);
     }
 
-    console.log(email, password);
+    console.log();
   };
   return (
     <div className="w-[440px] mx-auto">

@@ -5,10 +5,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import Button from "../Button/Button";
+import { useSession } from "next-auth/react";
 
 export default function ConnectedLayout({ children }) {
   // variables //
   const pathname = usePathname();
+  const { data: session } = useSession(); 
+
+  console.log(session)
 
   return (
     <section className=" flex flex-col min-h-screen px-5">
