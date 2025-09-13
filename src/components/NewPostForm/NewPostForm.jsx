@@ -4,6 +4,9 @@ import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import Button from "../Button/Button";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
+import { createPost } from "@/actions/createPost";
 
 export default function NewPostForm() {
   // Variable //
@@ -12,8 +15,20 @@ export default function NewPostForm() {
   // State //
   const [textarea, setTextarea] = useState("");
 
+  // function : cette fonction va nous permettre 
+  // de préparer un nouveau Threads a envoyer a notre base de donnée //
+  const prepareCreatePost = async (formData) => {
+      try {
+        await createPost(formData); 
+        setTextarea(""); 
+        
+      } catch (e) {
+        toast.error(e.message); 
+      }
+  }
+
   return (
-    <form>
+    <form action={prepareCreatePost}>
       <div className=" flex gap-4 w-full items-center">
         {/* Photo à gauche  */}
         <div>
