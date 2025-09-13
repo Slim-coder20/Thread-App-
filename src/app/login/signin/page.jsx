@@ -15,7 +15,7 @@ export default function Signin() {
     const email = formData.get("email");
     const password = formData.get("password");
 
-    // On vérifie si on pas d'email ou mot de passe //
+    // On vérifie si on n'a pas d'email ou mot de passe //
     if (!email || !password) {
       return toast.error("Veuillez remplir tous les champs.");
     }
@@ -43,7 +43,7 @@ export default function Signin() {
       return toast.error(error.message);
     }
 
-    console.log();
+    
   };
   return (
     <div className="w-[440px] mx-auto">
