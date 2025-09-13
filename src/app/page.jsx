@@ -3,43 +3,33 @@ import Post from "@/components/Post/Post";
 import { getServerSession } from "next-auth";
 import { authOptions } from "./api/auth/[...nextauth]/route";
 import NewPostForm from "@/components/NewPostForm/NewPostForm";
+import { MongoClient } from "mongodb";
 export default async function Index() {
   // On créé des posts pour les afficher dans la page d'accueil
   // Variable //
   const session = await getServerSession(authOptions);
+  // Récupréation des posts // 
+  // Variable // 
+  let posts , client; 
+  try {
+    // Connexion a la base de donnée // 
+    client = await MongoClient.connect(process.env.MONGODB_URI); 
+    const db = client.db(); 
+    // Selection des posts depuis MongoDB // 
+   posts = await db.collection('posts').find().sort({ creation: -1 }).toArray();
 
-  const posts = [
-    {
-      _id: "1",
-      content: "Bienvenue sur mon tout nouveau profil Threads !",
-      pseudo: "jhondoe",
-      profile: "/picture.png",
-    },
-    {
-      _id: "2",
-      content: "Bienvenue sur mon tout nouveau profil Threads !",
-      pseudo: "Stevejob",
-      profile: "/picture.png",
-    },
-    {
-      _id: "3",
-      content: "Bienvenue sur mon tout nouveau profil Threads !",
-      pseudo: "Stevejob",
-      profile: "/picture.png",
-    },
-    {
-      _id: "4",
-      content: "Bienvenue sur mon tout nouveau profil Threads !",
-      pseudo: "Stevejob",
-      profile: "/picture.png",
-    },
-    {
-      _id: "5",
-      content: "Bienvenue sur mon tout nouveau profil Threads !",
-      pseudo: "Stevejob",
-      profile: "/picture.png",
-    },
-  ];
+    // formater Post // 
+    posts = posts.map(post => ({
+      ...post, 
+      _id: post._id.toString(),
+    }))
+
+  } catch (e) {
+    throw new Error(e.message);
+    
+  }
+  await client.close(); 
+  
   return (
     <ConnectedLayout>
       <div className="md:w-[700px] w-full mx-auto mt-10">

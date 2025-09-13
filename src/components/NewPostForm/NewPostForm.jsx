@@ -15,30 +15,31 @@ export default function NewPostForm() {
   // State //
   const [textarea, setTextarea] = useState("");
 
-  // function : cette fonction va nous permettre 
+  // function : cette fonction va nous permettre
   // de préparer un nouveau Threads a envoyer a notre base de donnée //
   const prepareCreatePost = async (formData) => {
-      try {
-        await createPost(formData); 
-        setTextarea(""); 
-        
-      } catch (e) {
-        toast.error(e.message); 
-      }
-  }
+    try {
+      await createPost(formData);
+      setTextarea("");
+    } catch (e) {
+      toast.error(e.message);
+    }
+  };
 
   return (
     <form action={prepareCreatePost}>
       <div className=" flex gap-4 w-full items-center">
         {/* Photo à gauche  */}
         <div>
-          <Image
-            src={session?.user.profile}
-            alt="User"
-            width={50}
-            height={50}
-            className="rounded-full mt-5"
-          ></Image>
+          {session?.user.profile && (
+            <Image
+              src={session.user.profile}
+              alt="User"
+              width={50}
+              height={50}
+              className="rounded-full mt-5"
+            ></Image>
+          )}
         </div>
         {/* Champ de formulaire à droite  */}
         <div className=" flex-1 mt-3">
